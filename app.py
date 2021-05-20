@@ -7,8 +7,11 @@ import requests
 #name = input(' >> ')
 def getLastDate(name):
     URL = 'http://fow.kr/find/'+name
+    headers = {'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Mobile Safari/537.36'}
     response = requests.get(URL)
+    response = requests.get(URL,headers = headers)
     htmlt = response.text
+    print(htmlt)
     htmlt = htmlt.split("'tipsy_live' tipsy='")
     if(len(htmlt)>2):
         raw = htmlt[2][:19]
@@ -27,6 +30,7 @@ def index():
 def search():
     sum_name = request.args.get('name')
     result = getLastDate(sum_name)
+    print(result)
     return render_template('search.html',sum_name=sum_name,result=result)
 
 print('end')
